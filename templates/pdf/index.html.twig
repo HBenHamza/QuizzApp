@@ -1,0 +1,266 @@
+<style>
+  #container{
+    word-wrap: break-word;
+  }
+</style>
+<div id="container">
+<table width="663">
+   <tbody>
+      <tr>
+         <td><span style="text-decoration: underline;">Nombre de demandes</span></td>
+         <td><span style="text-decoration: underline;">Taux de demandes trait&eacute;s</span></td>
+         <td><span style="text-decoration: underline;">Demandes en cours&nbsp;</span></td>
+      </tr>
+      <tr>
+         <td>6</td>
+         <td>57 %</td>
+         <td>4</td>
+      </tr>
+   </tbody>
+</table>
+<div>
+   <div>
+      <div>
+         <div>
+            <h6>Liste de demandes (en attente de traitement)</h6>
+         </div>
+         <div>
+            <div>
+               <table border="1" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Date de naissance</th>
+                        <th>N&deg; mobile</th>
+                        <th>Pays</th>
+                        <th>Adresse</th>
+                        <th>Antecedants m&eacute;dicaux</th>
+                        <th>Antecedans chirurgical</th>
+                        <th>Poids</th>
+                        <th>Taille</th>
+                        <th>Traitements chroniques</th>
+                        <th>Prise de m&eacute;dicament</th>
+                        <th>Enfants</th>
+                        <th>N&deg; enfants</th>
+                        <th>Soutien familiale</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for k,demande in demandes %}
+                        {% if demande['status'] == 0 %}
+                         <tr>
+                          {% for key in demande|keys %}
+                                  {% if key != "personal_photo" and key != "personal_identity" 
+                                  and key != "id" and key != "status"  %}
+                                <td>{{ demande[key] }}</td>
+                                {% endif %}
+                          {% endfor %}
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+   <div>
+      <div>
+         <div>
+            <h6>Liste de demandes (en cours de traitement)</h6>
+         </div>
+         <div>
+            <div>
+               <table border="1" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Date de naissance</th>
+                        <th>N&deg; mobile</th>
+                        <th>Pays</th>
+                        <th>Adresse</th>
+                        <th>Antecedants m&eacute;dicaux</th>
+                        <th>Antecedans chirurgical</th>
+                        <th>Poids</th>
+                        <th>Taille</th>
+                        <th>Traitements chroniques</th>
+                        <th>Prise de m&eacute;dicament</th>
+                        <th>Enfants</th>
+                        <th>N&deg; enfants</th>
+                        <th>Soutien familiale</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for k,demande in demandes %}
+                        {% if demande['status'] == 1 %}
+                         <tr>
+                          {% for key in demande|keys %}
+                                  {% if key != "personal_photo" and key != "personal_identity" 
+                                  and key != "id" and key != "status"  %}
+                                <td>{{ demande[key] }}</td>
+                                {% endif %}
+                          {% endfor %}
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+   <div>
+      <div>
+         <div>
+            <h6>Liste de demandes (refus&eacute;s)</h6>
+         </div>
+         <div>
+            <div>
+               <table border="1" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Date de naissance</th>
+                        <th>N&deg; mobile</th>
+                        <th>Pays</th>
+                        <th>Adresse</th>
+                        <th>Antecedants m&eacute;dicaux</th>
+                        <th>Antecedans chirurgical</th>
+                        <th>Poids</th>
+                        <th>Taille</th>
+                        <th>Traitements chroniques</th>
+                        <th>Prise de m&eacute;dicament</th>
+                        <th>Enfants</th>
+                        <th>N&deg; enfants</th>
+                        <th>Soutien familiale</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for k,demande in demandes %}
+                        {% if demande['status'] == 2 %}
+                         <tr>
+                          {% for key in demande|keys %}
+                                  {% if key != "personal_photo" and key != "personal_identity" 
+                                  and key != "id" and key != "status"  %}
+                                <td>{{ demande[key] }}</td>
+                                {% endif %}
+                          {% endfor %}
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+   <div>
+      <div>
+         <div>
+            <h6>Liste de demandes (accept&eacute;s)</h6>
+         </div>
+         <div>
+            <div>
+               <table border="1" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Date de naissance</th>
+                        <th>N&deg; mobile</th>
+                        <th>Pays</th>
+                        <th>Adresse</th>
+                        <th>Antecedants m&eacute;dicaux</th>
+                        <th>Antecedans chirurgical</th>
+                        <th>Poids</th>
+                        <th>Taille</th>
+                        <th>Traitements chroniques</th>
+                        <th>Prise de m&eacute;dicament</th>
+                        <th>Enfants</th>
+                        <th>N&deg; enfants</th>
+                        <th>Soutien familiale</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for k,demande in demandes %}
+                        {% if demande['status'] == 3 %}
+                         <tr>
+                          {% for key in demande|keys %}
+                                  {% if key != "personal_photo" and key != "personal_identity" 
+                                  and key != "id" and key != "status"  %}
+                                <td>{{ demande[key] }}</td>
+                                {% endif %}
+                          {% endfor %}
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+   <div>
+      <div>
+         <div>
+            <h6>Demandes archiv&eacute;es</h6>
+         </div>
+         <div>
+            <div>
+               <table border="1" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>Date</th>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Date de naissance</th>
+                        <th>N&deg; mobile</th>
+                        <th>Pays</th>
+                        <th>Adresse</th>
+                        <th>Antecedants m&eacute;dicaux</th>
+                        <th>Antecedans chirurgical</th>
+                        <th>Poids</th>
+                        <th>Taille</th>
+                        <th>Traitements chroniques</th>
+                        <th>Prise de m&eacute;dicament</th>
+                        <th>Enfants</th>
+                        <th>N&deg; enfants</th>
+                        <th>Soutien familiale</th>
+                        <th>Situation</th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for k,archive in archives %}
+                         <tr>
+                          {% for key in archive|keys %}
+                                  {% if key != "personal_photo" and key != "personal_identity" 
+                                  and key != "id" and key != "status"  %}
+                                <td>{{ archive[key] }}</td>
+                                {% endif %}
+                          {% endfor %}
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>

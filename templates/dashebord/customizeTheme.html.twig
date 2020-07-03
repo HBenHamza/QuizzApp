@@ -1,0 +1,94 @@
+{% extends 'base_admin.html.twig' %}
+
+
+{% block main %}
+<div class="row">
+    <div class="col-md-6 col-lg-6">             
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Prévisualisation</h6>
+                </div>
+                <div class="card-body">
+                   <div class="col-lg-12">
+                <div id="left_form">
+                    <figure><img src="{{ asset('img/theme/'~ theme.logo) }}" id="logo" alt="" style="width:100%"></figure>
+                    <h2>{{ theme.title}}</h2>
+                    <p>{{ theme.description }}</p>
+                </div>
+            </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-6">             
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Personnalisation</h6>
+                </div>
+                <div class="card-body">
+                   <div class="col-lg-12">
+                        <form action="{{ path('customize_theme') }}" method="post"  enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="theme_logo">Logo</label>
+                                    <input type="file" class="form-control" name="theme_logo">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="theme_title">Titre</label>
+                                    <input type="text" class="form-control" name="theme_title">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="theme_description">Description</label>
+                                    <textarea class="form-control" name="theme_description"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-block">Modifier</button>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+        <div class="row">
+
+              <div class="col-md-6 col-lg-6">             
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">chosir votre disponibilté</h6>
+                </div>
+                <div class="card-body">
+                   <div class="col-lg-12">
+                     <form action="{{ path('fix_availability') }}" method="post"  enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" id="min_date" name="min_date">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" id="max_date" name="max_date">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-info btn-block">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+            </div>
+        
+        </div>
+{% endblock %}

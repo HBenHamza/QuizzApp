@@ -1,0 +1,68 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">             
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Ajouter un champ</h6>
+                </div>
+                <div class="card-body">
+                <form action="{{ path('addField') }}" method="POST">
+                    <select class="form-control" name="type" id="type">
+                        <option value="Input text">Input text</option>
+                        <option value="Textarea">Textarea</option>
+                        <option value="Checkbox">Checkbox</option>
+                        <option value="Radio">Radio</option>
+                        <option value="Select">Liste de selection</option>
+                    </select>
+                    <div class="form-group">
+                        <div class="input-block">
+                            <label for="first_name"></label>
+                            <input class="form-control required" type="text" name="title" placeholder="Titre (ou placeholder)">
+                        </div>
+                        <div id="checkbox" style="display:none">
+                             <h6 class="mt-2">Options : </h6>
+                            <div id="checkboxChoices">
+                            </div>
+                            <button id="submit" class="btn btn-info mt-2">Ajouter une option</button>
+                        </div>
+                    </div>
+                    <input type="submit" value="Enregistrer" class="btn btn-success">
+                </form>
+            </div>
+                </div>
+              </div>
+
+            </div>
+
+            
+
+            </div>
+            
+            <script>
+                $(document).ready(function() {
+                    $("#type").change(function(){
+                        if(this.value == 'Checkbox' || this.value == 'Radio' || this.value == 'Select'){
+                            $("#checkbox").show();
+                        }else{
+                            $("#checkbox").hide()
+                        }
+                    })
+                    var checkboxes = 0;
+                    $('#submit').click(function(event) {
+                        event.preventDefault();
+                        $('#checkboxChoices')
+                        .append('<div style="display:flex"><input style="margin-right:1rem;" id="'+checkboxes+'" type="text" class="form-control mb-2" name="option_'+checkboxes+'" value=""><span id="'+checkboxes+'" style="margin-top: 10px;cursor:pointer"  onclick="deleteOption(this,this.id)">X</span></div>')
+                        checkboxes++;
+                    })
+                });
+                function deleteOption(elt,id){
+                    elt.parentNode.remove();
+                    elt.innerHTML = "";
+                    $('#'+id).remove();
+                }
+            </script>
+{% endblock %}

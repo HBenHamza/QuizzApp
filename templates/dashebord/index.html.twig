@@ -1,0 +1,251 @@
+{% extends 'base_admin.html.twig' %}
+
+
+{% block main %}
+
+ <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="{{ path('generate_report') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombre de demande</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ demandes|length }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Taux de de demandes traités</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ taux }}%</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ taux }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Demandes en cours</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ en_cours }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Liste de demandes (en attente de traitement)</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="col-sm-12">
+                  <table id="demandes" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row">
+                    {% for demande in demandes %}
+                      {{ dump(demande|keys) }}
+                      {% for key in demande|keys %}
+                        {% if key != "id" and key != "status" %}
+                          <th>{{ key }}</th>   
+                        {% endif %} 
+                      {% endfor %}
+                    {% endfor %}
+                    <th>Fichiers attachés</th>
+                   <th></th>
+                  </thead>
+                  <tbody>
+                  {% for demande in demandes %}
+                          <tr role="row" class="odd">
+                            {% for key in demande|keys %}
+                                  {% if key == "personal_photo" and demande[key] != "" %}
+                                    <td>
+                                      <a href="{{ asset('uploads/test/'~  demande[key]) }}">
+                                        <img src="{{ asset('uploads/test/'~  demande[key])  }}" style="width:100%">
+                                      </a>  
+                                    </td>
+                                {% elseif key == "personal_identity" and demande[key] != "" %}
+                                      <td>
+                                        <a href="{{ asset('uploads/test/'~  demande[key])  }}">
+                                          <img src="{{ asset('uploads/test/'~  demande[key])  }}" style="width:100%">
+                                        </a>  
+                                      </td>
+                                  {% else %}
+                                      {% if key != "id" and key != "status" and key != "have_children" and key != "have_cronics" and key != "have_family_care" and key != "commentaires" %}
+                                        <td>{{ demande[key] }}</td>
+                                      {% endif %}
+                                      {% if key == "have_children" or key == "have_cronics" or key == "have_family_care" %}
+                                        {% if demande[key] == 1 %}
+                                          <td><img src="{{ asset('img/check.png') }}" style="display: block;margin: auto;width: 35px;"></td>
+                                        {% else %}
+                                          <td><img src="{{ asset('img/cross.png') }}" style="display: block;margin: auto;width: 35px;"></td>
+                                        {% endif %}
+                                      {% endif %}
+                                  {% endif %}
+                            {% endfor %} 
+                            <form id="updateDemande" action="{{ path('update_demande') }}" method="POST" enctype="multipart/form-data">
+                            <td><textarea class="form-control" maxlength="250" name="comment">{% if demande['commentaires'] %}{{ demande['commentaires'] }} {% endif %}</textarea></td>
+                            <td><input type="file" name="attachement"></td>
+                            <input type="hidden" name="id" value="{{ demande['id'] }}">
+                            </form>
+                            <td>
+                            <a href="javascript:void(0)" onclick="updateDemande()" class="btn btn-warning"><i  class="fa fa-pencil bg-warning"></i></a>
+                            <a href="{{ path('delete_demande',{'id': demande['id']}) }}" class="btn btn-danger"><i  class="fa fa-trash bg-danger"></i></a>
+                            </td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+                </table></div>
+                </div>
+              </div>
+            </div>           
+          </div>
+
+
+           <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Liste des champs (Front Office)</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="col-sm-12">
+                    <table id="table-1" class="table table-bordered dataTable">
+                    <thead>
+                      <th>Nom du champs</th>
+                      <th></th>
+                      </thead>
+                      <tbody>
+                        {% set i = 0 %}
+                        {% for field in fields %}
+                              {% if field['COLUMN_NAME'] != "id" and field['COLUMN_NAME'] != "date" and field['COLUMN_NAME'] != "status"  %}
+                              <tr id="{{ field['COLUMN_NAME'] }}_{{ i }}">
+                                <td>{{ field['COLUMN_NAME'] }}</td>
+                                <td>
+                                 <a href="{{ path('drop_field',{'name': field['COLUMN_NAME']}) }}" class="btn btn-danger"><i  class="fa fa-trash bg-danger"></i></a>
+                                </td>
+                              </tr>
+                              {% set i = i + 1 %}
+                              {% endif %}
+                        {% endfor %}
+                      </tbody>
+                    </tbody>
+                  </div>
+                </div>
+              </div>
+            </div>           
+          </div>
+
+          <!-- Button trigger modal -->
+<button type="button" style="display:none" id="modalBtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Avertissment !</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Afin de modifier la demande veuillez bein renseigner les champs nécessaires 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        </div>
+        <!-- /.container-fluid -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js" integrity="sha256-d3rtug+Hg1GZPB7Y/yTcRixO/wlI78+2m08tosoRn7A=" crossorigin="anonymous"></script>
+        <script>
+            
+            function updateDemande(){
+              var a = document.forms["updateDemande"]["comment"].value;
+              var b = document.forms["updateDemande"]["attachement"].value;
+              
+              if (a == null || a == "", b == null || b == "") {
+                $("#modalBtn").click();
+                return false;
+              }
+              document.getElementById('updateDemande').submit();
+            }
+
+            function updateAPI(id,value){
+              $.post( "{{ path('updateAPI') }}", { id: id,'value':value}, function( data ) {
+                if(data.status == 200){
+                  location.reload();
+                }
+              });
+            }
+
+            /*$("#table-1").tableDnD({
+              onDragStart: function(table,row) {
+                 
+              }
+            });*/
+            
+        </script>
+
+{% endblock %}

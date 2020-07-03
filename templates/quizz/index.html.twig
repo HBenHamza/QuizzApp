@@ -1,0 +1,255 @@
+{% extends 'base.html.twig' %} 
+
+
+{% block main %}
+<main>
+    <div id="form_container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div id="left_form">
+                    <figure><img src="{{ asset('img/theme/'~ theme.logo) }}" id="logo" alt="" style="width:100%"></figure>
+                    <h2>{{ theme.title}}</h2>
+                    <p>{{ theme.description }}</p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+
+                <div id="wizard_container">
+                    <div id="top-wizard">
+                        <div id="progressbar"></div>
+                    </div>
+                    <!-- /top-wizard -->
+                    <form action="/test" method="POST" id="myForm" enctype="multipart/form-data">
+                        <input id="website" name="website" type="text" value="">
+                        <!-- Leave for security protection, read docs for details -->
+                        <div id="middle-wizard">
+                            <div class="step">
+                                <h3 class="main_question"><strong>1/4</strong>Veuillez remplir vos Cordonnées</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+                                                <input class="form-control required" id="first_name" type="text" name="first_name" placeholder="Nom">
+                                            </div>
+                                            <span class="first_name_emsg ishidden-true error">Merci d'entrer un nom valide</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+                                                <input class="form-control required" type="text" id="last_name" name="last_name" placeholder="Prénom">
+                                                <span class="last_name_emsg ishidden-true error">Merci d'entrer un prénom valide</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /row -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+                                                <input class="form-control " type="date" id="birthdate" name="birthdate" placeholder="Date de Naissance">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+											    <input type="tel" id="mobile" name="mobile" class="form-control " placeholder="e.g. +1 702 123 4567">
+                                                <span class="mobile_emsg ishidden-true error">N° invalide</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /row -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+											    <input clas="form-control " name="country" id="country" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-block">
+                                                <label for="first_name">*</label>
+											    <textarea name="address" id="address" class="form-control " style="resize:none" placeholder="Votre adresse"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- /row -->
+                            </div>
+                            <div class="step">
+                                <h3 class="main_question"><strong>2/4</strong>Veuillez remplir vos Cordonnées</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" name="medical_background" class="form-control" placeholder="Antécédents medicaux">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" name="chirurgical_background" class="form-control" placeholder="Antécédents chirurgicaux">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /row -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="number" name="weight" class="form-control" placeholder="Votre poids (Kg)" min="50" max="120">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="number" name="height" class="form-control" placeholder="Votre taille (cm)"  min="160" max="210">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /row -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="can-toggle">
+                                            <input id="a" type="checkbox" name="chronics">
+                                            <div class="can-toggle__label-text">Traitements chroniques ?</div>
+                                            <label for="a">
+                                                <div class="can-toggle__switch" id="chronics" data-checked="Oui" data-unchecked="Non"></div>
+                                            </label>
+                                            <input type="hidden" name="have_cronics" id="have_cronics" value="0">
+                                         </div>
+                                    </div>
+                                    <div class="col-md-6" id="chronics_number">
+                                        <label for="number_chronics_per_day">Combien de prise de medicaments par jour ?</label>
+                                        <input type="number" class="form-control" name="number_chronics_per_day" id="number_chronics_per_day" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /step-->
+
+                            <div class="step">
+                                <h3 class="main_question"><strong>3/4</strong>Veuillez remplir vos Cordonnées</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="can-toggle">
+                                            <input id="b" type="checkbox" name="children">
+                                            <div class="can-toggle__label-text">Avez-vous des enfants ?</div>
+                                            <label for="b">
+                                                <div class="can-toggle__switch" id="children" data-checked="Oui" data-unchecked="Non"></div>
+                                            </label>
+                                            <input type="hidden" name="have_children" id="have_children" value="0">
+                                         </div>
+                                    </div>
+                                    <div class="col-md-6" id="children_number">
+                                        <label for="number_of_children">Combien d'enfants avez-vous ?</label>
+                                        <input type="number" class="form-control" name="number_of_children" id="number_of_children" min="0">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <div class="can-toggle">
+                                            <input id="c" type="checkbox" name="family_care">
+                                            <div class="can-toggle__label-text">Soutien de famille ?</div>
+                                            <label for="c">
+                                                <div class="can-toggle__switch" id="children" data-checked="Oui" data-unchecked="Non"></div>
+                                            </label>
+                                            <input type="hidden" name="have_family_care" id="have_family_care" value="0">
+                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="situation" placeholder="Votre situation">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic step -->
+                                {% set length = html_fields|length %}
+                                {% if length > 0 %}
+                                    {% for step in 1.. steps %}
+                                    <div class="step">
+                                    <h3 class="main_question"><strong>{{ (step + 3) }} / {{ (4 + steps) }}</strong>Veuillez remplir vos Cordonnées</h3>
+                                        {% for i in ((step * 4)- 4)..(4 * step) - 1 %}
+                                                {% if html_fields[i] is defined %}
+                                                    {{ html_fields[i]|raw  }}
+                                                {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+                            <!-- Dynamic step -->
+
+                            <!-- /step-->
+                            <div class="step submit">
+                                <h3 class="main_question"><strong>{{ 4 + steps }} / {{ 4 + steps }}</strong>Veuillez remplir vos Cordonnées</h3>
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <label for="personal_photo">Photo personnel </label>
+                                    <input type="file" class="form-control" name="personal_photo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="personal_identity">Photo d'identité</label>
+                                    <input type="file" class="form-control" name="personal_identity">
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="personal_identity">Choisir une date de disponibilité</label>
+                                        <input type="date" name="avalability" class="form-control" min={{ min_date }} max={{ max_date }} id="availability">
+                                    </div>
+                                </div>
+                            <br><br>
+                                <div class="form-group terms">
+                                    <input name="terms" type="checkbox" class="icheck " value="yes" required>
+                                    <label>Veuillez accepter <a href="#" data-toggle="modal" data-target="#terms-txt">les termes et conditions?</a> ?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /middle-wizard -->
+                        <div id="bottom-wizard">
+                            <button type="button" name="backward" class="backward">Précedent </button>
+                            <button type="button" name="forward" class="forward">Suivant</button>
+                            <button type="submit" name="process" class="submit">Enregistrer</button>
+                        </div>
+                        <!-- /bottom-wizard -->
+                    </form>
+                </div>
+                <!-- /Wizard container -->
+            </div>
+        </div>
+        <!-- /Row -->
+    </div>
+    <!-- /Form_container -->
+</main>
+
+
+<script src="{{ asset('js/country_selector.js') }}"></script>
+
+<script>
+	$(document).ready(function() {
+        
+         {% autoescape false %}
+            var min_date = {{ min_date|raw  }};
+        {% endautoescape %}
+        console.log(min_date);
+       
+        
+    });
+
+	$("#mobile").intlTelInput();
+    
+	$("#country").countrySelect({
+        preferredCountries: ['tn', 'alg', 'fr']
+    });
+
+   
+
+</script>
+{% endblock %}
