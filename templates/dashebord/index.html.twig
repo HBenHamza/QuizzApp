@@ -95,7 +95,6 @@
                   <thead>
                     <tr role="row">
                     {% for demande in demandes %}
-                      {{ dump(demande|keys) }}
                       {% for key in demande|keys %}
                         {% if key != "id" and key != "status" %}
                           <th>{{ key }}</th>   
